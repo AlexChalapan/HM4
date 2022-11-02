@@ -13,8 +13,6 @@ pipeline {
                     reuseNode true
                 }
             }
-            steps {
-            }
         }
-    }
+     }
 }
