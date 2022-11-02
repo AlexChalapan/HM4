@@ -1,28 +1,23 @@
 pipeline {
-    agent { docker { image 'sebp/elk' } }
-
-    stages {
-        stage('1-Build') {
+  agent {
+    docker {
+        label 'ubuntu'
+    }
+  }
+     stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'sebp/elk'
+                    // Run the container on the node specified at the
+                    // top-level of the Pipeline, in the same workspace,
+                    // rather than on a new node entirely:
+                    reuseNode true
+                }
+            }
             steps {
-                echo "Start of Stage Build"
-                echo "Building......."
-                sh   "python --version"
-                echo "End of Stage Build"
+                sh 'gradle --version'
             }
         }
-        stage('2-Test') {
-            steps {
-                echo "Start of Stage Test"
-                echo "Testing......."
-                echo "End of Stage Build"
-            }
-        }
-        stage('3-Deploy') {
-            steps {
-                echo "Start of Stage Deploy"
-                echo "Deploying......."
-                echo "End of Stage Build"
-            }
-        }
-   }
+    }
 }
