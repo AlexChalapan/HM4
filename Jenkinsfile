@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label ubuntu
-        docker { image 'sebp/elk' } }
+    agent { docker { image 'sebp/elk' } }
 
     stages {
         stage('1-Build') {
